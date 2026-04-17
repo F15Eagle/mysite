@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Engineering & Rocketry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0047ab;
+            --dark-bg: #0a0e14;
+            --accent-blue: #00d4ff;
+            --text-gray: #a0aec0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(10, 14, 20, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-bg);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a2a6c, #b21f1f, #fdbb2d); /* Rocket plume vibe */
+            background: radial-gradient(circle at center, #001f3f 0%, #0a0e14 100%);
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            max-width: 600px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 10% 60px;
+            min-height: 80vh;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary-blue);
+            padding-left: 20px;
+        }
+
+        /* Projects Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .card h3 {
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        /* Rocketry Specifics */
+        .tech-tags {
+            margin-top: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--glass-bg);
+            color: var(--text-gray);
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            section { padding: 80px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#rocketry">Rocketry</a>
+        <a href="#eagle">Eagle Project</a>
+        <a href="#experience">Experience</a>
+    </nav>
+
+    <header id="home">
+        <h1>Engineering the Future.</h1>
+        <p>Aspiring Aerospace Engineer | Robotics Enthusiast | Eagle Scout</p>
+        <div class="social-links" style="margin-top: 25px;">
+            <a href="https://www.linkedin.com/in/prady-m/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </header>
+
+    <section id="rocketry">
+        <h2 class="section-title">Rocketry & Propulsion</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>High-Power Rocketry</h3>
+                <p>Focused on high-altitude flight dynamics and recovery systems. Experienced in designing and launching F-class rockets and beyond.</p>
+                <div class="tech-tags">
+                    <span class="tag">OpenRocket</span>
+                    <span class="tag">SolidWorks</span>
+                    <span class="tag">Avionics</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Simulation & CFD</h3>
+                <p>Utilizing computational fluid dynamics to analyze aerodynamic drag and stability across various mach regimes.</p>
+                <div class="tech-tags">
+                    <span class="tag">Autodesk CFD</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Aerodynamics</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>American Rocketry Challenge</h3>
+                <p>Lead designer for competitive flight vehicles, optimizing for precise apogee targets and payload safety.</p>
+                <div class="tag">Systems Engineering</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="eagle" style="background: rgba(255,255,255,0.02);">
+        <h2 class="section-title">Eagle Scout Service Project</h2>
+        <div style="max-width: 800px;">
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                As the capstone of my journey to Eagle Scout, I led a community service project that required over 100 hours of planning, fundraising, and execution.
+            </p>
+            <div class="card">
+                <h3>Project Leadership</h3>
+                <p>Managed a team of volunteers to design and construct [Briefly describe your project here, e.g., outdoor learning center / renovated trail infrastructure]. The project involved budgeting, material procurement, and ensuring safety standards were met throughout the build phase.</p>
+                <br>
+                <p><strong>Key Outcomes:</strong></p>
+                <ul style="margin-left: 20px; color: var(--text-gray);">
+                    <li>Coordinated 15+ volunteers across multiple weekends.</li>
+                    <li>Raised $XXX in community donations for materials.</li>
+                    <li>Developed long-term maintenance plans for the beneficiary organization.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Technical Experience</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Manufacturing & Industry</h3>
+                <p>Hands-on experience in factory environments, understanding the lifecycle of aerospace components and precision machining.</p>
+            </div>
+            <div class="card">
+                <h3>Embedded Systems</h3>
+                <p>Developing custom flight computers and telemetry systems using ESP32 and RP2040 platforms.</p>
+                <div class="tech-tags">
+                    <span class="tag">C++</span>
+                    <span class="tag">PCB Design</span>
+                    <span class="tag">I2C/SPI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 | Designed for the Future</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Built with HTML/CSS</p>
+    </footer>
+
+</body>
+</html>
