@@ -3,8 +3,8 @@ email: prady@domain.com
 description: Aspiring Aerospace Engineer Portfolio
 
 # Deployment URLs
-baseurl: "" 
-url: ""
+baseurl: "/mysite" 
+url: "https://f15eagle.github.io"
 
 # Build settings
 # Removing "theme: minima" ensures Jekyll processes your custom CSS and layouts cleanly
