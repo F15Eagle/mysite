@@ -53,8 +53,8 @@ layout: nil
         /* Automated Inline Image Engine */
         .project-body img {
             display: block;
-            max-width: 100%;  /* Constrains layout width automatically */
-            height: auto;     /* Aspect ratio integrity guard */
+            max-width: 100%;  
+            height: auto;     
             margin: 2.5rem auto 0.5rem; 
             border-radius: 4px;
         }
@@ -88,13 +88,13 @@ layout: nil
         /* Specialized Engineering Blockquotes */
         .project-body blockquote {
             margin: 1rem 0;
-            padding: 0.25rem 1rem; /* Reduced top and bottom padding from 0.5rem to 0.25rem */
+            padding: 0.25rem 1rem; 
             background: #fafafa;
             border-left: 3px solid var(--text-dark);
             color: var(--text-muted);
         }
         .project-body blockquote p {
-            margin-bottom: 0; /* Keeps spacing tight inside the callout */
+            margin-bottom: 0; 
         }
 
         footer { max-width: 1300px; margin: 0 auto; padding: 70px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-line); }
@@ -103,7 +103,7 @@ layout: nil
 <body>
 
     <article class="project-container">
-        <a href="/" class="project-back-btn">
+        <a href="{{ '/' | relative_url }}" class="project-back-btn">
             <i class="fas fa-arrow-left"></i> Return Home
         </a>
 
@@ -140,7 +140,6 @@ layout: nil
         document.addEventListener('DOMContentLoaded', () => {
             const bodyContainer = document.querySelector('.project-body');
             if (bodyContainer) {
-                // Hook into immediate block level elements inside markdown parser output
                 Array.from(bodyContainer.children).forEach(el => {
                     el.classList.add('scroll-reveal-element');
                 });
@@ -152,7 +151,7 @@ layout: nil
                     if (entry.isIntersecting) {
                         setTimeout(() => { 
                             entry.target.classList.add('is-visible'); 
-                        }, index * 40); // Standard micro stagger speed
+                        }, index * 40); 
                         observer.unobserve(entry.target);
                     }
                 });
