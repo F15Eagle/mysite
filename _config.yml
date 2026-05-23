@@ -1,0 +1,25 @@
+title: Portfolio | Prady
+email: prady@domain.com
+description: Aspiring Aerospace Engineer Portfolio
+
+# Deployment URLs
+baseurl: "" 
+url: ""
+
+# Build settings
+# Removing "theme: minima" ensures Jekyll processes your custom CSS and layouts cleanly
+theme: []
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - .sass-cache/
+  - .jekyll-cache/
+  - vendor/
+
+# Automation Engines
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Eagle Project: Building a Composter for Evanston Grows | Prady</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --light-bg: #ffffff;
+            --text-dark: #111111;
+            --text-muted: #5e666e;
+            --border-line: #f0f0f0;
+            --bezier-breezy: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--light-bg); color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.02em; color: var(--text-dark); }
+        .mono-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 700; }
+
+        /* Layout Framework Containers */
+        .project-container { max-width: 850px; margin: 0 auto; padding: 90px 5% 120px; }
+        
+        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
+        .project-back-btn:hover { color: var(--text-dark); }
+
+        .project-header { margin-bottom: 50px; border-bottom: 1px solid var(--border-line); padding-bottom: 40px; }
+        .project-header h1 { font-size: 2.8rem; line-height: 1.15; margin-bottom: 20px; }
+        
+        .project-meta-grid { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 30px; }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-content { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; color: var(--text-dark); }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .meta-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-dark); background: #ffffff; padding: 3px 8px; border: 1px solid #e2e8f0; border-radius: 3px; }
+
+        /* Typography & Element Handling for Compiled Markdown */
+        .project-body { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; line-height: 1.75; color: #2d3748; }
+        .project-body h2, .project-body h3, .project-body h4 { color: var(--text-dark); margin: 3rem 0 1rem; line-height: 1.3; }
+        .project-body h2 { font-size: 1.8rem; }
+        .project-body h3 { font-size: 1.45rem; }
+        .project-body p { margin-bottom: 1.6rem; color: #2d3748; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .project-body ul, .project-body ol { margin-bottom: 1.6rem; padding-left: 24px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .project-body li { margin-bottom: 0.6rem; color: #2d3748; }
+
+        /* Automated Inline Image Engine */
+        .project-body img {
+            display: block;
+            max-width: 100%;  /* Constrains layout width automatically */
+            height: auto;     /* Aspect ratio integrity guard */
+            margin: 2.5rem auto 0.5rem; 
+            border-radius: 4px;
+        }
+
+        /* Technical Figure & Caption System */
+        .project-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+        .project-body figure img {
+            margin: 0 auto 0.8rem; 
+        }
+        .project-body figcaption {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .project-body pre { background: #fafafa; border: 1px solid var(--border-line); padding: 22px; border-radius: 4px; overflow-x: auto; margin: 2.5rem 0; }
+        .project-body code { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; background: #fafafa; padding: 2px 6px; border-radius: 3px; color: var(--text-dark); }
+        .project-body pre code { padding: 0; background: transparent; }
+
+        /* Breezy Animated Scroll Reveal States */
+        .scroll-reveal-element { opacity: 0; transform: scale(0.99) translateY(12px); transition: opacity 1.2s var(--bezier-breezy), transform 1.2s var(--bezier-breezy); }
+        .scroll-reveal-element.is-visible { opacity: 1; transform: scale(1) translateY(0); }
+
+        /* Specialized Engineering Blockquotes */
+        .project-body blockquote {
+            margin: 1rem 0;
+            padding: 0.25rem 1rem; /* Reduced top and bottom padding from 0.5rem to 0.25rem */
+            background: #fafafa;
+            border-left: 3px solid var(--text-dark);
+            color: var(--text-muted);
+        }
+        .project-body blockquote p {
+            margin-bottom: 0; /* Keeps spacing tight inside the callout */
+        }
+
+        footer { max-width: 1300px; margin: 0 auto; padding: 70px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-line); }
+    </style>
+</head>
+<body>
+
+    <article class="project-container">
+        <a href="/" class="project-back-btn">
+            <i class="fas fa-arrow-left"></i> Return Home
+        </a>
+
+        <header class="project-header">
+            <h1>My Eagle Project: Building a Composter for Evanston Grows</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.6;">Designing, planning, and executing my 110 cubic foot composter build.</p>
+            
+            <div class="project-meta-grid">
+                
+                <div class="meta-item">
+                    <span class="mono-label">// Tags</span>
+                    <div class="meta-tags">
+                        
+                        <span class="meta-tag">Scouting</span>
+                        
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                </div>
+            </div>
+        </header>
+
+        <div class="project-body">
+            <h2 id="summary">Summary</h2>
+<p>In 2025, I planned and executed my Eagle Scout Service Project benefiting <a href="https://www.evanstongrows.org/">Evanston Grows</a>, a local urban farming nonprofit that provides fresh produce to communities living in food deserts. Specifically, I engineered and built a 110-cubic-foot composter to process organic waste at their Faith Temple farm site.</p>
+
+<p>The entire process closely mirrored an engineering lifecycle, requiring multiple stages of rigorous approval, design reviews, and final presentations. Throughout the experience, I learned an enormous amount about the critical importance of robust planning—especially accounting for contingency scenarios—as well as team leadership, proactive communication, and community coordination.</p>
+
+<p>I am incredibly grateful to Scout Troop 924, my friends, and my family for generously supporting me with their time and funding throughout this journey.</p>
+
+<blockquote>
+  <h3 id="stats">Stats:</h3>
+  <ul>
+    <li>$1000+ raised</li>
+    <li>
+      <p>25+ volunteers</p>
+    </li>
+    <li>Over 210 man-hours of combined effort</li>
+  </ul>
+</blockquote>
+
+        </div>
+    </article>
+
+    <footer>
+        <div class="mono-label" style="color: var(--text-dark);">&copy; 2026 PRADY M.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bodyContainer = document.querySelector('.project-body');
+            if (bodyContainer) {
+                // Hook into immediate block level elements inside markdown parser output
+                Array.from(bodyContainer.children).forEach(el => {
+                    el.classList.add('scroll-reveal-element');
+                });
+            }
+
+            const options = { root: null, rootMargin: '0px', threshold: 0.02 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => { 
+                            entry.target.classList.add('is-visible'); 
+                        }, index * 40); // Standard micro stagger speed
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            document.querySelectorAll('.scroll-reveal-element').forEach(el => { 
+                observer.observe(el); 
+            });
+        });
+    </script>
+</body>
+</html>
