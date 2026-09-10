@@ -25,7 +25,7 @@
         /* Layout Framework Containers */
         .project-container { max-width: 850px; margin: 0 auto; padding: 90px 5% 120px; }
         
-        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
+        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
         .project-back-btn:hover { color: var(--text-dark); }
 
         .project-header { margin-bottom: 50px; border-bottom: 1px solid var(--border-line); padding-bottom: 40px; }
@@ -50,8 +50,8 @@
         /* Automated Inline Image Engine */
         .project-body img {
             display: block;
-            max-width: 100%;  /* Constrains layout width automatically */
-            height: auto;     /* Aspect ratio integrity guard */
+            max-width: 100%;  
+            height: auto;     
             margin: 2.5rem auto 0.5rem; 
             border-radius: 4px;
         }
@@ -85,13 +85,13 @@
         /* Specialized Engineering Blockquotes */
         .project-body blockquote {
             margin: 1rem 0;
-            padding: 0.25rem 1rem; /* Reduced top and bottom padding from 0.5rem to 0.25rem */
+            padding: 0.25rem 1rem; 
             background: #fafafa;
             border-left: 3px solid var(--text-dark);
             color: var(--text-muted);
         }
         .project-body blockquote p {
-            margin-bottom: 0; /* Keeps spacing tight inside the callout */
+            margin-bottom: 0; 
         }
 
         footer { max-width: 1300px; margin: 0 auto; padding: 70px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-line); }
@@ -100,13 +100,13 @@
 <body>
 
     <article class="project-container">
-        <a href="/" class="project-back-btn">
+        <a href="/mysite/" class="project-back-btn">
             <i class="fas fa-arrow-left"></i> Return Home
         </a>
 
         <header class="project-header">
             <h1>Lil' Willy: Altitude-Limiting Airbraked Rocket</h1>
-            <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.6;">PID control, SIL and HIL testing and optimization, custom avionics.</p>
+            <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.6;">PID control, SITL testing and optimization, custom avionics.</p>
             
             <div class="project-meta-grid">
                 
@@ -114,9 +114,9 @@
                     <span class="mono-label">// Tags</span>
                     <div class="meta-tags">
                         
-                        <span class="meta-tag">OpenRocket</span>
+                        <span class="meta-tag">SITL</span>
                         
-                        <span class="meta-tag">Avionics</span>
+                        <span class="meta-tag">PID Control</span>
                         
                     </div>
                 </div>
@@ -130,7 +130,10 @@
             <h2 id="summary">Summary</h2>
 <p>Lil’ Willy is my high school active-control rocketry team’s (E-Town Rocket Bureau’s) effort to control the apogee of an F-Class model rocket using PID-controlled airbrakes. The project is currently underway, with a target launch window set for the summer of 2026. So far, we’ve conducted one test flight, which—rather unfortunately—ended in a rapid unscheduled disassembly.</p>
 
-<p>While the rocket was originally intended for the 2026 American Rocketry Challenge, Flight 1’s catastrophic failure sidelined those plans. To learn more about the program and track our progress, you can visit our <a href="https://ethsrocketry.github.io/site/arc-2026.html">website</a>.</p>
+<p>While the rocket was originally intended for the 2026 American Rocketry Challenge (ARC), Flight 1’s catastrophic failure sidelined those plans. To learn more about the program and track our progress, you can visit our <a href="https://ethsrocketry.github.io/site/arc-2026.html">website</a>.</p>
+
+<h2 id="initial-exposure">Initial Exposure</h2>
+<p>In 2024, banded together with a couple people (Eli Corr and Tristan Schultz) to co-found E-Town Rocket Bureau. At the onset, we focused on creating something that was challenging to make. We decided on competing in the ARC, the world’s largest model rocket contest. I was chosen to be the lead engineer. At the end of the year, our rocket landed in the water, causing critical damage to its recovery system. However, we were proud of the experience we’d gained with rocketry (building a model rocket, designing in CAD, troubleshooting 3D printers, coding, etc.), but even more happy with the valuable insights in project management, design methodology, budgeting, and parts acquisition.</p>
 
         </div>
     </article>
@@ -143,7 +146,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bodyContainer = document.querySelector('.project-body');
             if (bodyContainer) {
-                // Hook into immediate block level elements inside markdown parser output
                 Array.from(bodyContainer.children).forEach(el => {
                     el.classList.add('scroll-reveal-element');
                 });
@@ -155,7 +157,7 @@
                     if (entry.isIntersecting) {
                         setTimeout(() => { 
                             entry.target.classList.add('is-visible'); 
-                        }, index * 40); // Standard micro stagger speed
+                        }, index * 40); 
                         observer.unobserve(entry.target);
                     }
                 });

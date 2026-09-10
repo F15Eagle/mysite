@@ -25,7 +25,7 @@
         /* Layout Framework Containers */
         .project-container { max-width: 850px; margin: 0 auto; padding: 90px 5% 120px; }
         
-        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
+        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
         .project-back-btn:hover { color: var(--text-dark); }
 
         .project-header { margin-bottom: 50px; border-bottom: 1px solid var(--border-line); padding-bottom: 40px; }
@@ -50,8 +50,8 @@
         /* Automated Inline Image Engine */
         .project-body img {
             display: block;
-            max-width: 100%;  /* Constrains layout width automatically */
-            height: auto;     /* Aspect ratio integrity guard */
+            max-width: 100%;  
+            height: auto;     
             margin: 2.5rem auto 0.5rem; 
             border-radius: 4px;
         }
@@ -85,13 +85,13 @@
         /* Specialized Engineering Blockquotes */
         .project-body blockquote {
             margin: 1rem 0;
-            padding: 0.25rem 1rem; /* Reduced top and bottom padding from 0.5rem to 0.25rem */
+            padding: 0.25rem 1rem; 
             background: #fafafa;
             border-left: 3px solid var(--text-dark);
             color: var(--text-muted);
         }
         .project-body blockquote p {
-            margin-bottom: 0; /* Keeps spacing tight inside the callout */
+            margin-bottom: 0; 
         }
 
         footer { max-width: 1300px; margin: 0 auto; padding: 70px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-line); }
@@ -100,7 +100,7 @@
 <body>
 
     <article class="project-container">
-        <a href="/" class="project-back-btn">
+        <a href="/mysite/" class="project-back-btn">
             <i class="fas fa-arrow-left"></i> Return Home
         </a>
 
@@ -115,6 +115,8 @@
                     <div class="meta-tags">
                         
                         <span class="meta-tag">Scouting</span>
+                        
+                        <span class="meta-tag">Service</span>
                         
                     </div>
                 </div>
@@ -136,12 +138,24 @@
   <h3 id="stats">Stats:</h3>
   <ul>
     <li>$1000+ raised</li>
-    <li>
-      <p>25+ volunteers</p>
-    </li>
+    <li>25+ volunteers</li>
     <li>Over 210 man-hours of combined effort</li>
   </ul>
 </blockquote>
+
+<h2 id="motivation-and-community-impact">Motivation and Community Impact</h2>
+<p>Access to fresh, sustainable food has always been a core priority for me. Aside from simply being a passionate foodie, my family roots trace back to India—a region that faced severe, systemic food security challenges just a few decades ago before agricultural transformations took hold. Because of this background, I wanted my mandatory Eagle project to be more than a checkbox; I wanted it to leave a lasting, operational impact on local food equity.</p>
+
+<p>Partnering with Evanston Grows allowed me to apply engineering logic to community service. By building a massive, onsite 110-cubic-foot composter, the Faith Temple farm site gained the ability to infinitely reprocess its own organic agricultural waste. This closed-loop system fundamentally changed their unit economics, eliminating their reliance on commercial, yearly compost purchases. As a result, the non-profit can now permanently reallocate those recurring capital funds directly toward scaling up actual food production for underserved local neighborhoods.</p>
+
+<h2 id="managing-materials-and-constraints">Managing Materials and Constraints</h2>
+<p>Even the best-laid plans encounter sudden roadblocks. Mid-way through the procurement phase, I ran into a critical material choice: whether to use standard, cost-effective treated construction lumber or switch to premium natural cedar. Treated lumber was affordable but carried chemical preservation agents that raised potential food-safety concerns for organic urban farming. Cedar was completely food-safe and durable, but its premium cost threatened to inflate my materials budget by nearly 70%.</p>
+
+<p>Unwilling to compromise the integrity of the project’s purpose, I reached out to my Scoutmaster for advice. His guidance was simple but foundational: <em>always prioritize quality and safety in the things you build for others.</em></p>
+
+<p>Accepting the constraint, I pivoted my strategy. I leaned heavily into fundraising and community outreach, successfully scaling our capital generation past the $1,000 mark to absorb the pricing spike. From there, I managed the intensive logistical paperwork and safety permits required to bring the raw materials to the farm site.</p>
+
+<p>On the construction days, I stepped into a purely managerial role, coordinating and leading a diverse workforce of 25 youth and adult volunteers. Over the course of 210 combined man-hours, we managed the layout, cutting, assembly, and secure anchoring of the structure. The final, completed cedar composter stands as proof that a person of action doesn’t cut corners when faced with unexpected project constraints.</p>
 
         </div>
     </article>
@@ -154,7 +168,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bodyContainer = document.querySelector('.project-body');
             if (bodyContainer) {
-                // Hook into immediate block level elements inside markdown parser output
                 Array.from(bodyContainer.children).forEach(el => {
                     el.classList.add('scroll-reveal-element');
                 });
@@ -166,7 +179,7 @@
                     if (entry.isIntersecting) {
                         setTimeout(() => { 
                             entry.target.classList.add('is-visible'); 
-                        }, index * 40); // Standard micro stagger speed
+                        }, index * 40); 
                         observer.unobserve(entry.target);
                     }
                 });
