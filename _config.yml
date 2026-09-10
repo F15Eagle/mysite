@@ -9,6 +9,11 @@ url: "https://f15eagle.github.io"
 # Build settings
 # Removing "theme: minima" ensures Jekyll processes your custom CSS and layouts cleanly
 theme: []
+markdown: kramdown
+kramdown:
+  input: GFM
+  parse_block_html: true
+  parse_span_html: true
 
 exclude:
   - Gemfile

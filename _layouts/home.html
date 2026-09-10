@@ -89,6 +89,9 @@ layout: default
     /* Header Profile Shell */
     header { max-width: 1300px; margin: 0 auto; padding: 80px 5% 100px; display: grid; grid-template-columns: 380px 1fr; gap: 80px; align-items: center; }
     .hero-left-profile { display: flex; justify-content: flex-start; }
+    header { position: relative; isolation: isolate; }
+    .wind-field { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.8; }
+    header > :not(.wind-field) { position: relative; z-index: 1; }
     .profile-image-container { width: 380px; height: 380px; border-radius: 4px; overflow: hidden; background-color: #f7f7f7; border: 1px solid var(--border-line); }
     .profile-image-container img { width: 100%; height: 100%; object-fit: cover; filter: none; transition: transform 0.5s var(--bezier-breezy); }
     .profile-image-container:hover img { transform: scale(1.015); }
@@ -108,7 +111,7 @@ layout: default
         border: none; 
     }
     
-    .project-link-wrapper { text-decoration: none; color: inherit; display: block; }
+    .project-link-wrapper { text-decoration: none; color: inherit; display: block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
     .scroll-reveal-card { opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 1s var(--bezier-breezy), transform 1s var(--bezier-breezy); }
     .scroll-reveal-card.is-visible { opacity: 1; transform: scale(1) translateY(0); }
     
@@ -166,6 +169,9 @@ layout: default
         transform: scale(1.03); 
     }
 
+    .project-link-wrapper .card h3,
+    .project-link-wrapper .card p,
+    .project-link-wrapper .card .tag { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
     .card-body h3 { font-size: 1.35rem; margin-bottom: 12px; font-weight: 700; }
     .card-body p { color: var(--text-muted); font-size: 0.95rem; font-weight: 400; margin-bottom: 25px; }
     .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
@@ -221,6 +227,7 @@ layout: default
 </nav>
 
 <header id="home">
+    <canvas class="wind-field" aria-hidden="true"></canvas>
     <div class="hero-left-profile">
         <div class="profile-image-container anim-sweep-left">
             <img src="{{ 'assets/images/pradyumna-manur.jpg' | relative_url }}" alt="Prady Portrait Document">
@@ -278,6 +285,72 @@ layout: default
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const windField = document.querySelector('.wind-field');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (windField) {
+            const context = windField.getContext('2d');
+            const header = windField.parentElement;
+            let width = 0;
+            let height = 0;
+            let particles = [];
+            let animationFrame;
+
+            const resize = () => {
+                const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                width = header.clientWidth;
+                height = header.clientHeight;
+                windField.width = width * pixelRatio;
+                windField.height = height * pixelRatio;
+                windField.style.width = `${width}px`;
+                windField.style.height = `${height}px`;
+                context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+                particles = Array.from({ length: Math.max(18, Math.floor(width / 38)) }, (_, index) => ({
+                    x: (index * 83) % width,
+                    y: (index * 47) % height,
+                    length: 10 + (index % 4) * 4,
+                    speed: 0.35 + (index % 5) * 0.08
+                }));
+            };
+
+            const flow = (x, y) => ({
+                x: 0.8 + Math.sin(y * 0.012) * 0.35,
+                y: Math.sin(x * 0.008 + y * 0.004) * 0.22
+            });
+
+            const draw = () => {
+                context.clearRect(0, 0, width, height);
+                context.lineWidth = 1;
+                context.strokeStyle = 'rgba(67, 117, 128, 0.16)';
+
+                particles.forEach(particle => {
+                    const vector = flow(particle.x, particle.y);
+                    const endX = particle.x + vector.x * particle.length;
+                    const endY = particle.y + vector.y * particle.length;
+                    context.beginPath();
+                    context.moveTo(particle.x, particle.y);
+                    context.lineTo(endX, endY);
+                    context.stroke();
+
+                    if (!reduceMotion) {
+                        particle.x += vector.x * particle.speed;
+                        particle.y += vector.y * particle.speed;
+                        if (particle.x > width + 20) particle.x = -20;
+                        if (particle.y < -20) particle.y = height + 20;
+                        if (particle.y > height + 20) particle.y = -20;
+                    }
+                });
+
+                if (!reduceMotion) animationFrame = requestAnimationFrame(draw);
+            };
+
+            resize();
+            window.addEventListener('resize', resize);
+            draw();
+
+            window.addEventListener('pagehide', () => cancelAnimationFrame(animationFrame), { once: true });
+        }
+
         const options = { root: null, rootMargin: '0px', threshold: 0.05 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {

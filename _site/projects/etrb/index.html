@@ -25,7 +25,7 @@
         /* Layout Framework Containers */
         .project-container { max-width: 850px; margin: 0 auto; padding: 90px 5% 120px; }
         
-        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
+        .project-back-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 40px; transition: color 0.2s ease; }
         .project-back-btn:hover { color: var(--text-dark); }
 
         .project-header { margin-bottom: 50px; border-bottom: 1px solid var(--border-line); padding-bottom: 40px; }
@@ -50,8 +50,8 @@
         /* Automated Inline Image Engine */
         .project-body img {
             display: block;
-            max-width: 100%;  /* Constrains layout width automatically */
-            height: auto;     /* Aspect ratio integrity guard */
+            max-width: 100%;  
+            height: auto;     
             margin: 2.5rem auto 0.5rem; 
             border-radius: 4px;
         }
@@ -85,13 +85,13 @@
         /* Specialized Engineering Blockquotes */
         .project-body blockquote {
             margin: 1rem 0;
-            padding: 0.25rem 1rem; /* Reduced top and bottom padding from 0.5rem to 0.25rem */
+            padding: 0.25rem 1rem; 
             background: #fafafa;
             border-left: 3px solid var(--text-dark);
             color: var(--text-muted);
         }
         .project-body blockquote p {
-            margin-bottom: 0; /* Keeps spacing tight inside the callout */
+            margin-bottom: 0; 
         }
 
         footer { max-width: 1300px; margin: 0 auto; padding: 70px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-line); }
@@ -100,7 +100,7 @@
 <body>
 
     <article class="project-container">
-        <a href="/" class="project-back-btn">
+        <a href="/mysite/" class="project-back-btn">
             <i class="fas fa-arrow-left"></i> Return Home
         </a>
 
@@ -116,6 +116,8 @@
                         
                         <span class="meta-tag">Leadership</span>
                         
+                        <span class="meta-tag">Aerospace</span>
+                        
                     </div>
                 </div>
                 
@@ -126,15 +128,43 @@
 
         <div class="project-body">
             <h2 id="summary">Summary</h2>
-<p>I co-founded the E-Town Rocket Bureau—my High School’s active-control rocketry team—in August of 2024, along with Founder <a href="https://www.linkedin.com/in/eli-corr-486847392/">Eli Corr</a> and Co-Founders <a href="https://www.linkedin.com/in/tristan-schultz-54930428a/">Tristan Schultz</a> and <a href="https://www.linkedin.com/in/peter-elbakian-2a66453b0/">Peter Elbakian</a>.</p>
+<p>I co-founded the E-Town Rocket Bureau—my High School’s active-control rocketry team—in August of 2024, along with Founder Eli Corr and Co-Founders Tristan Schultz and Peter Elbakian.</p>
 
-<p>I’ve since served as Chief Engineer, with my tenure ending in May of 2026. Having had the privilege to serve for two years, I’ve learned a great deal about leadership in engineering contexts. I built our organizational structure from the ground up and created our broader school rocketry website. The <a href="https://ethsrocketry.github.io/site/home.html">website</a> showcases our work, and–crucially–stores our knowledge, allowing future generations of engineers to gain a headstart. During my tenure, the team has grown 75% YoY because of our outreach efforts, even after half the roster graduated after the first year.</p>
+<p>I’ve since served as Chief Engineer, with my tenure ending in May of 2026. Having had the privilege to serve for two years, I’ve learned a great deal about leadership in engineering contexts. I built our organizational structure from the ground up and created our broader school rocketry website. The website showcases our work, and—crucially—stores our knowledge, allowing future generations of engineers to gain a headstart.</p>
 
 <p>Starting out completely new to rocketry, I’ve had the opportunity to absorb a massive amount of technical material. I’ve since gained proficiency and hands-on experience with Python, C++, active control systems, software-in-the-loop (SIL) PID optimization, embedded systems, and a whole host of supporting software.</p>
 
 <figure>
-<img src="/assets/images/etrb-2025-team.jpg" alt="2025 Team Photo" />
-<figcaption>2025 Team Photo</figcaption>
+  <p><img src="/mysite/assets/images/etrb-2025-team.jpg" alt="2025 Team Photo" /></p>
+  <figcaption>
+    <p>2025 Team Photo&lt;/figcaption&gt;
+&lt;/figure&gt;</p>
+
+    <h2 id="recruitment-and-onboarding-bottlenecks">Recruitment and Onboarding Bottlenecks</h2>
+    <p>Our first year was primarily focused on gaining basic technical experience and defining our long-term goals: competing in the American Rocketry Challenge (ARC) and pioneering actively-controlled model rocketry at our school. However, graduation hit us hard at the end of that first year, claiming half of our core membership.</p>
+
+    <p>To rebuild, I spearheaded an outreach and recruitment campaign heading into the fall. By leveraging the Freshman Activity Fair, presenting to incoming students, and engaging directly with parents, we achieved a 75% YoY club growth rate, ultimately scaling our roster by 250%.</p>
+
+    <p>This massive influx of new members brought an unexpected leadership bottleneck: we suddenly had a highly enthusiastic but entirely inexperienced freshman cohort. Balancing college applications, school, and rocket development left little room to design a formal training pipeline on the fly. I chose to have newer members learn CAD and core aerospace concepts “on the go” to keep our production schedule alive.</p>
+
+    <p>This decision proved to be a major learning experience. Learning on the fly drastically reduced our delegation efficiency and forced me to shoulder complex, technical tasks entirely on my own while trying to self-learn embedded systems simultaneously. Looking back, this constraint taught me that upfront structural training is non-negotiable. For future generations of the team, I have institutionalized a strict strategy playbook: a maximum of 3 weeks of public outreach followed immediately by 1 to 2 months of dedicated, rigorous onboarding to ensure the team operates at peak efficiency.</p>
+
+    <h2 id="hardware-failure-and-next-steps">Hardware Failure and Next Steps</h2>
+    <p>The culmination of our technical efforts was a prototype vehicle equipped with custom active-control airbrakes and an ESP32-based avionics stack. We managed to get the vehicle flight-ready just in time for the competition.</p>
+
+    <p>Unfortunately, due to a single mechanical component failure, the rocket’s recovery deployment system failed to trigger, and the vehicle suffered a catastrophic crash into the ground upon descent. Because of the impact, we didn’t recover any flight data from the launch, and we were instantly disqualified from continuing in the official competition bracket.</p>
+
+    <p>Instead of letting the team fold in defeat, I rallied the members back into the workshop to salvage the wreckage and pivot our objectives. While the hardware was lost, the engineering goals weren’t. I cheered the team into shifting our focus toward building and flying a second vehicle. We are currently using this second program to properly validate the core systems that went untested during the initial crash, ensuring our custom airbrake loops and avionics get the real-world flight validation they need.</p>
+
+    <h2 id="building-the-institutional-repository">Building the Institutional Repository</h2>
+    <p>To permanently bridge our experience gap and ensure the freshmen wouldn’t face the same resource bottlenecks I did, I spent significant time building out our comprehensive team website.</p>
+
+    <p>The site serves as a secure, centralized digital repository designed for long-term organizational continuity. I structured it to house all of our internal technical and organizational knowledge, including our proprietary CAD files, custom C++ firmware for the avionics stack, Python code used for our software-in-the-loop control simulations, and full club history. By documenting our structural post-mortems, design files, and code repositories in a clean, accessible framework, we’ve turned a temporary club into a sustainable engineering pipeline. Future generations of high school engineers can now bypass basic logistical hurdles and build directly on top of our existing technical foundation.</p>
+
+    <p>Beyond the purely technical data, I heavily documented our internal organizational structure to serve as a blueprint for future student leadership. This includes the division of labor between sub-teams, tracking tools for milestone deadlines, and template documentation for managing club finances and inventory. I also included a dedicated section for administrative and outreach playbooks, mapping out exactly how to interface with school administration, manage public relations, and coordinate parent engagement based on what worked during our recruitment drives.</p>
+
+    <p>Crucially, the repository serves as a medium for program recommendations and final reflections. I wrote extensive post-mortems detailing our recruitment strategies, the exact timeline constraints of the competition calendar, and the hard lessons learned from skipping a structured onboarding process. By leaving a transparent record of our operational failures—and outlining clear solutions like my 3-week recruitment and 2-month training rule—the platform balances technical theory with practical leadership guidance. It ensures that future club members don’t just inherit a box of rocket parts, but a functional, adaptive organization.</p>
+  </figcaption>
 </figure>
 
         </div>
@@ -148,7 +178,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bodyContainer = document.querySelector('.project-body');
             if (bodyContainer) {
-                // Hook into immediate block level elements inside markdown parser output
                 Array.from(bodyContainer.children).forEach(el => {
                     el.classList.add('scroll-reveal-element');
                 });
@@ -160,7 +189,7 @@
                     if (entry.isIntersecting) {
                         setTimeout(() => { 
                             entry.target.classList.add('is-visible'); 
-                        }, index * 40); // Standard micro stagger speed
+                        }, index * 40); 
                         observer.unobserve(entry.target);
                     }
                 });
