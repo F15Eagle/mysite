@@ -1,0 +1,19 @@
+# The home-page project cards are managed here. Set `visible: false` to hide a card.
+# Use a site-relative image path so Jekyll applies the configured base URL correctly.
+- order: 1
+  visible: true
+  title: "E-Town Rocket Bureau: Two Years of Active Control"
+  description: "A complete overview of my time engineering active-control model rockets, SITL simulators, and building an aerospace team from the ground up."
+  url: "/projects/etrb/"
+  image: "/assets/images/full assembly render 1.png"
+  image_alt: "E-Town Rocket Bureau active-control rocket assembly"
+  tags: ["Rocketry", "Aerospace", "Active Controls", "Leadership", "Python", "C++"]
+
+- order: 2
+  visible: true
+  title: "My Eagle Project: Building a Composter for Evanston Grows"
+  description: "Designed and led the construction of a community composter for Evanston Grows."
+  url: "/projects/eagle-project/"
+  image: "/assets/images/composter_interior_view.jpg"
+  image_alt: "Completed community composter interior"
+  tags: ["Leadership", "Community", "Construction"]
