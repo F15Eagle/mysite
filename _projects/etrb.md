@@ -37,9 +37,7 @@ While I was deep in the avionics and airbrake work, another problem emerged: our
 
 That delegation mattered. The rocket was already becoming too large of a project for one person to own every subsystem, and I needed to learn when engineering meant building something myself and when it meant trusting someone else to build it.
 
-That same systems mindset shaped how I approached the control software. Before risking another rocket, I wanted a way to tune the PID controller without repeatedly destroying hardware. I built **ATOS — the Active Targeting and Optimization Suite —**, a Software-in-the-Loop simulator in Google Colab designed to model our flight-control system and test parameters virtually. The core Python suite was built and operational by the end of January 2026.
-
-[[link: https://github.com/ETHS-Rocketry/airbrake-active-control, ATOS — Active Targeting and Optimization Suite GitHub Repository]]
+That same systems mindset shaped how I approached the control software. Before risking another rocket, I wanted a way to tune the PID controller without repeatedly destroying hardware. I built **[[link: https://github.com/ETHS-Rocketry/airbrake-active-control, ATOS — the Active Targeting and Optimization Suite]] —**, a Software-in-the-Loop simulator in Google Colab designed to model our flight-control system and test parameters virtually. The core Python suite was built and operational by the end of January 2026.
 
 ATOS could run repeated virtual flights and automatically search for PID parameters that brought the simulated rocket toward a target apogee. I implemented a binary-search-based optimization process for the controller gains, allowing dozens of virtual flight iterations to be performed without burning through physical rockets. The simulator modeled not just the controller, but the interaction between the flight trajectory, avionics, airbrakes, and servo behavior.
 
