@@ -31,11 +31,13 @@ I also wanted to understand the control system mathematically rather than treati
 
 While I was deep in the avionics and airbrake work, another problem emerged: our exhaust plume was going to completely char the wooden launch pad. Rather than taking on another project myself, I delegated the launch-tower upgrade to two or three other team members. They designed and implemented a stainless-steel V-deflector layered with carbon-fiber blankets to protect the launch infrastructure.
 
-That delegation mattered. The rocket was already becoming too large of a project for one person to own every subsystem, and I needed to learn when engineering meant **building something myself and when it meant trusting someone else to build it**.
+That delegation mattered. The rocket was already becoming too large of a project for one person to own every subsystem, and I needed to learn when engineering meant building something myself and when it meant trusting someone else to build it.
 
-By the time we reached our first test flight, the complexity of the rocket had caught up with us. I stayed up until 6:30 AM the morning of the launch, slept for roughly 90 minutes, and then headed to the field. On March 29, 2026, we launched Lil' Willy 001.
+By the time we reached our first test flight, the complexity of the rocket had caught up with us. I stayed up building until 6:30 AM the morning of the launch, slept for roughly 90 minutes, and then headed to the field. On March 29, 2026, we launched Lil' Willy 001.
 
 The ascent itself was nominal, but the ejection charge fired early. Excess friction from adhesive tape prevented the rocket from decoupling, and the roughly 1530°C ejection gases melted through the upper avionics and airbrake plastics. The rocket ultimately descended ballistically at approximately Mach 0.2.
+
+[[youtube: DBYvCB82rY4, Launch 1]]
 
 It was a brutal failure, but it exposed problems that CAD and simulations had not. We immediately redesigned the deployment system, added wooden bulkheads to absorb the ejection blast, and replaced MicroSD storage with soldered flash memory so that a crash would no longer mean losing our flight data. The failure forced us to think about the rocket not as a collection of individual components, but as a system whose mechanical, electrical, and software decisions could all affect one another.
 
