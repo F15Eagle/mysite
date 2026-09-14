@@ -10,7 +10,7 @@ layout: nil
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- PDF.js Implementation -->
+    <!-- PDF.js Implementation[cite: 1] -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <style>
@@ -100,11 +100,17 @@ layout: nil
         .youtube-embed-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 4px; overflow: hidden; background: #000000; border: 1px solid var(--border-line); }
         .youtube-embed-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* Image Carousel Component */
+        /* Local Video Embed Component */
+        .video-embed-wrapper { margin: 2.5rem 0; text-align: center; }
+        .video-embed-container { width: 100%; border-radius: 4px; overflow: hidden; background: #000000; border: 1px solid var(--border-line); }
+        .video-embed-container video { width: 100%; display: block; max-height: 550px; outline: none; }
+
+        /* Media Carousel Component */
         .carousel-container { position: relative; width: 100%; margin: 2.5rem 0; overflow: hidden; border-radius: 4px; border: 1px solid var(--border-line); background: #fafafa; }
         .carousel-slides { display: flex; transition: transform 0.4s var(--bezier-breezy); width: 100%; }
         .carousel-slide { min-width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #fafafa; }
         .carousel-slide img { max-width: 100%; max-height: 520px; object-fit: contain; margin: 0; border-radius: 0; }
+        .carousel-slide video { max-width: 100%; max-height: 520px; width: 100%; object-fit: contain; margin: 0; outline: none; background: #000000; }
         .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-line); color: var(--text-dark); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: all 0.2s ease; z-index: 5; }
         .carousel-btn:hover { background: #ffffff; border-color: var(--text-dark); }
         .carousel-btn.prev { left: 14px; }
@@ -117,7 +123,7 @@ layout: nil
         .scroll-reveal-element { opacity: 0; transform: scale(0.99) translateY(12px); transition: opacity 1.2s var(--bezier-breezy), transform 1.2s var(--bezier-breezy); }
         .scroll-reveal-element.is-visible { opacity: 1; transform: scale(1) translateY(0); }
 
-        /* ── PDF HUD ARCHITECTURE (Light Theme Adapted) ── */
+        /* ── PDF HUD ARCHITECTURE (Light Theme Adapted)[cite: 1] ── */
         .pdf-badge-container { margin: 2.5rem 0; width: 100%; }
         .pdf-interactive-anchor { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: #fafafa; border: 1px solid var(--border-line); border-radius: 4px; text-decoration: none !important; cursor: pointer; transition: all 0.2s ease; }
         .pdf-interactive-anchor::after { display: none; } /* Override global link icon for PDF */
@@ -206,7 +212,7 @@ layout: nil
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-        // Core Variables
+        // Core Variables[cite: 1]
         let activeModalPdf = null;
         let inlinePdfCounter = 0;
         const inlinePdfDocMap = new Map();
@@ -227,6 +233,10 @@ layout: nil
             return (match && match[2].length === 11) ? match[2] : url.trim();
         }
 
+        function isVideoFile(path) {
+            return /\.(mp4|webm|ogg|mov)$/i.test(path.trim());
+        }
+
         function createShortcode(type, parameters) {
             const tokens = parameters.split(',').map(token => token.trim());
             const assetPath = tokens[0];
@@ -234,6 +244,26 @@ layout: nil
             const url = resolveProjectUrl(assetPath);
 
             if (!assetPath) return document.createTextNode(`[[${type}: ${parameters}]]`);
+
+            if (type === 'video') {
+                const captionText = tokens[1] || '';
+                const figure = document.createElement('figure');
+                figure.className = 'video-embed-wrapper';
+                const container = document.createElement('div');
+                container.className = 'video-embed-container';
+                const video = document.createElement('video');
+                video.src = url;
+                video.controls = true;
+                video.preload = 'metadata';
+                container.append(video);
+                figure.append(container);
+                if (captionText) {
+                    const caption = document.createElement('figcaption');
+                    caption.textContent = captionText;
+                    figure.append(caption);
+                }
+                return figure;
+            }
 
             if (type === 'youtube') {
                 const videoId = extractYouTubeId(assetPath);
@@ -259,7 +289,7 @@ layout: nil
 
             if (type === 'carousel') {
                 const rawItems = parameters.includes(';') ? parameters.split(';') : parameters.split(',');
-                const imageItems = rawItems.map(item => item.trim()).filter(Boolean);
+                const mediaItems = rawItems.map(item => item.trim()).filter(Boolean);
 
                 const container = document.createElement('div');
                 container.className = 'carousel-container';
@@ -272,15 +302,25 @@ layout: nil
 
                 let currentIndex = 0;
 
-                imageItems.forEach((imgSrc, idx) => {
-                    const imgUrl = resolveProjectUrl(imgSrc);
+                mediaItems.forEach((mediaSrc, idx) => {
+                    const mediaUrl = resolveProjectUrl(mediaSrc);
                     const slide = document.createElement('div');
                     slide.className = 'carousel-slide';
-                    const img = document.createElement('img');
-                    img.src = imgUrl;
-                    img.alt = `Slide ${idx + 1}`;
-                    img.loading = 'lazy';
-                    slide.append(img);
+
+                    if (isVideoFile(mediaSrc)) {
+                        const video = document.createElement('video');
+                        video.src = mediaUrl;
+                        video.controls = true;
+                        video.preload = 'metadata';
+                        slide.append(video);
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = mediaUrl;
+                        img.alt = `Slide ${idx + 1}`;
+                        img.loading = 'lazy';
+                        slide.append(img);
+                    }
+
                     slidesTrack.append(slide);
 
                     const dot = document.createElement('span');
@@ -290,7 +330,7 @@ layout: nil
                 });
 
                 function goToSlide(index) {
-                    currentIndex = (index + imageItems.length) % imageItems.length;
+                    currentIndex = (index + mediaItems.length) % mediaItems.length;
                     slidesTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
                     const dots = dotsTrack.querySelectorAll('.carousel-dot');
                     dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
@@ -309,7 +349,7 @@ layout: nil
                 nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
 
                 container.append(slidesTrack);
-                if (imageItems.length > 1) {
+                if (mediaItems.length > 1) {
                     container.append(prevBtn);
                     container.append(nextBtn);
                     container.append(dotsTrack);
@@ -379,7 +419,7 @@ layout: nil
             const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
             const nodes = [];
             while (walker.nextNode()) nodes.push(walker.currentNode);
-            const shortcode = /\[\[(image|pdf|link|youtube|carousel):\s*([^\]]+?)\]\]/g;
+            const shortcode = /\[\[(image|pdf|link|youtube|carousel|video):\s*([^\]]+?)\]\]/g;
             nodes.forEach(node => {
                 const text = node.textContent;
                 if (!shortcode.test(text)) return;
@@ -393,7 +433,7 @@ layout: nil
                     return match;
                 });
                 fragment.append(document.createTextNode(text.slice(previousEnd)));
-                const singleShortcode = text.trim().match(/^\[\[(image|pdf|link|youtube|carousel):\s*([^\]]+?)\]\]$/);
+                const singleShortcode = text.trim().match(/^\[\[(image|pdf|link|youtube|carousel|video):\s*([^\]]+?)\]\]$/);
                 if (singleShortcode && node.parentElement?.tagName === 'P') {
                     node.parentElement.replaceWith(createShortcode(singleShortcode[1], singleShortcode[2]));
                 } else {
@@ -431,7 +471,7 @@ layout: nil
             });
         });
 
-        // ── PDF HUD ARCHITECTURE SCRIPTS ──
+        // ── PDF HUD ARCHITECTURE SCRIPTS ──[cite: 1]
 
         function launchDocumentViewer(src, label) {
             const modal = document.getElementById('system-pdf-modal');
