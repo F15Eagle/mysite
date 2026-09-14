@@ -32,10 +32,6 @@ Ordered:
 ### Blockquotes
 > Highlighting a note or engineering design quote.
 
-### Code Blocks
-```javascript
-console.log("Hello, World!");
-
 ### Image with Caption
 [[image: /assets/images/architecture.png, Architecture Diagram]]
 
@@ -57,3 +53,7 @@ console.log("Hello, World!");
 
 ### Styled Link
 [[link: [https://github.com/project](https://github.com/project), Source Code Repository]]
+
+### Code Blocks
+```javascript
+console.log("Hello, World!");
