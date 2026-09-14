@@ -8,6 +8,7 @@ tags: ["Rocketry", "Aerospace", "Active Controls", "Leadership", "Python", "C++"
 home_display: true
 home_order: 1
 ---
+[[image: /assets/images/full assembly render 1.png]]
 
 When Eli, Tristan, Peter, and I started the E-Town Rocket Bureau in August 2024, we didn't just want to launch standard model rockets. We wanted to make a rocket that could **control where it went**. Our goal was the American Rocketry Challenge (ARC), where success depends on hitting a precise target altitude. That requirement turned what started as a high school rocketry club into a two-year systems engineering project spanning aerodynamics, mechanical design, embedded programming, simulation, manufacturing, and team management.
 
@@ -21,9 +22,12 @@ We originally planned to build two rockets for the 2026 season. Instead, the com
 
 For EML26, I designed a linkage-based airbrake mechanism capable of deploying during ascent while surviving roughly 12G loads. Using Autodesk Inventor and Autodesk CFD, I iterated on the mechanism, simulated its behavior, and rapidly prototyped components through 3D printing and laser cutting. The objective wasn't simply to make an airbrake that moved; it had to integrate with the airframe, survive launch, and provide enough aerodynamic authority to precisely control apogee.
 
-[[image: /assets/images/full assembly render 1.png, CAD assembly of the linkage-based active-control airbrake mechanism.]]
+[[image: /assets/images/Airbrake Render1.png, CAD assembly of the linkage-based active-control airbrake mechanism.]]
+[[carousel: assets/images/Airbrake Control Test (Numerical Input).mp4; /assets/images/Airbrake Render1.png]]
 
 Designing the mechanism was only half the problem. To control it, I engineered a custom avionics stack around an ESP32-S3 microcontroller, integrating a BMP180 barometer and BNO085 IMU for real-time flight data. The electronics required more than simply connecting a few sensors: I soldered over 50 points across the MCU, sensors, boost circuitry, and a capacitor intended to handle the servo's sudden current spikes. On the software side, we used a 1D Kalman filter and exponential smoothing to reduce sensor noise and obtain altitude measurements accurate to roughly 1.5 meters.
+
+[[image: /assets/images/Fully_Assembled_AV_Bay_2.jpg, Assembled Avionics Stack]]
 
 I also wanted to understand the control system mathematically rather than treating the PID controller as a collection of numbers to tune until something worked. I derived the proportional term from the rocket's altitude error and the aerodynamic response of the airbrakes, working through the relationship between the desired control response and the resulting proportional gain.
 
