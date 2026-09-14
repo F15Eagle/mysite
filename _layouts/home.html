@@ -220,7 +220,7 @@ layout: default
         <a href="#home" class="nav-text-link">Home</a>
         <a href="#projects" class="nav-text-link">Projects</a>
         <a href="{{ 'resume.html' | relative_url }}" class="nav-text-link">Resume</a>
-        <a href="https://www.linkedin.com/in/prady-m/" target="_blank" class="nav-social-link">
+        <a href="https://www.linkedin.com/in/prady-m/" target="_blank" rel="noopener noreferrer" class="nav-social-link">
             <i class="fab fa-linkedin-in"></i>
         </a>
     </div>
@@ -247,7 +247,8 @@ layout: default
     </div>
 
     <div class="project-grid">
-        {% for project in site.projects %}
+        {% assign home_projects = site.projects | where: "home_display", true | sort: "home_order" %}
+        {% for project in home_projects %}
         <a href="{{ project.url | relative_url }}" class="project-link-wrapper scroll-reveal-card">
             <div class="card {% if project.image_path and project.image_path != '' %}has-image{% endif %}">
                 

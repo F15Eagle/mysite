@@ -193,57 +193,112 @@ layout: nil
         let inlinePdfCounter = 0;
         const inlinePdfDocMap = new Map();
 
+        const siteBaseUrl = {{ site.baseurl | jsonify }};
+
+        function resolveProjectUrl(value) {
+            const trimmed = value.trim();
+            if (/^https?:\/\//i.test(trimmed)) return trimmed;
+            if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return '';
+            if (!trimmed.startsWith('/')) return trimmed;
+            return `${siteBaseUrl}/${trimmed.replace(/^\/+/, '')}`.replace(/([^:]\/)\/+/, '$1');
+        }
+
+        function createShortcode(type, parameters) {
+            const tokens = parameters.split(',').map(token => token.trim());
+            const assetPath = tokens[0];
+            const label = tokens[1] || assetPath.split('/').pop();
+            const url = resolveProjectUrl(assetPath);
+
+            if (!assetPath) return document.createTextNode(`[[${type}: ${parameters}]]`);
+            if (type === 'image') {
+                const figure = document.createElement('figure');
+                const image = document.createElement('img');
+                image.src = url;
+                image.alt = label || 'Project image';
+                image.loading = 'lazy';
+                figure.append(image);
+                if (label) {
+                    const caption = document.createElement('figcaption');
+                    caption.textContent = `// ${label}`;
+                    figure.append(caption);
+                }
+                return figure;
+            }
+            if (type === 'link') {
+                const paragraph = document.createElement('p');
+                const anchor = document.createElement('a');
+                anchor.href = url;
+                anchor.textContent = label;
+                if (/^https?:\/\//i.test(url)) {
+                    anchor.target = '_blank';
+                    anchor.rel = 'noopener noreferrer';
+                }
+                paragraph.append(anchor);
+                return paragraph;
+            }
+
+            const fullEmbed = tokens[2] && tokens[2].toLowerCase() === 'true';
+            if (fullEmbed) {
+                inlinePdfCounter++;
+                const embedId = inlinePdfCounter;
+                const container = document.createElement('div');
+                container.className = 'pdf-embedded-container';
+                container.id = `inline-pdf-box-${embedId}`;
+                container.dataset.src = url;
+                container.innerHTML = `<div class="viewport-window-header"><span class="viewport-window-title"></span><div class="viewport-pdf-controls"><span>Page</span><input type="number" class="pdf-page-input" id="inline-field-${inlinePdfCounter}" min="1" value="1"><span id="inline-max-${inlinePdfCounter}">/ --</span></div></div><div class="pdf-embedded-body" id="inline-scrollbody-${inlinePdfCounter}"></div>`;
+                container.querySelector('.viewport-window-title').textContent = label;
+                container.querySelector('.pdf-page-input').addEventListener('keydown', event => executeInlineJump(event, embedId));
+                return container;
+            }
+
+            const container = document.createElement('div');
+            container.className = 'pdf-badge-container';
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.className = 'pdf-interactive-anchor';
+            anchor.append(Object.assign(document.createElement('div'), { className: 'pdf-meta-group' }));
+            anchor.firstChild.innerHTML = '<span class="pdf-vector-icon"><i class="fas fa-file-pdf"></i></span><span class="pdf-asset-title"></span>';
+            anchor.querySelector('.pdf-asset-title').textContent = label;
+            const action = document.createElement('span');
+            action.className = 'pdf-action-tag';
+            action.textContent = 'View Pages';
+            anchor.append(action);
+            anchor.addEventListener('click', event => { event.preventDefault(); launchDocumentViewer(url, label); });
+            container.append(anchor);
+            return container;
+        }
+
+        function replaceProjectShortcodes(container) {
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+            const shortcode = /\[\[(image|pdf|link):\s*([^\]]+?)\]\]/g;
+            nodes.forEach(node => {
+                const text = node.textContent;
+                if (!shortcode.test(text)) return;
+                shortcode.lastIndex = 0;
+                const fragment = document.createDocumentFragment();
+                let previousEnd = 0;
+                text.replace(shortcode, (match, type, parameters, offset) => {
+                    fragment.append(document.createTextNode(text.slice(previousEnd, offset)));
+                    fragment.append(createShortcode(type, parameters));
+                    previousEnd = offset + match.length;
+                    return match;
+                });
+                fragment.append(document.createTextNode(text.slice(previousEnd)));
+                const singleShortcode = text.trim().match(/^\[\[(image|pdf|link):\s*([^\]]+?)\]\]$/);
+                if (singleShortcode && node.parentElement?.tagName === 'P') {
+                    node.parentElement.replaceWith(createShortcode(singleShortcode[1], singleShortcode[2]));
+                } else {
+                    node.replaceWith(fragment);
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const bodyContainer = document.querySelector('.project-body');
-            
             if (bodyContainer) {
-                // 1. Pre-render Markdown Element Parsing
-                let contentHtml = bodyContainer.innerHTML;
-
-                // Image Regex Hook (fixed to be non-greedy to stop captions from bleeding)
-                contentHtml = contentHtml.replace(/\[\[image:\s*([^,\]]+)(?:,\s*(.*?))?\]\]/g, (match, src, caption) => {
-                    return `<figure>
-                              <img src="${src.trim()}" alt="${caption ? caption.trim() : 'Project Image'}" />
-                              ${caption ? `<figcaption>// ${caption.trim()}</figcaption>` : ''}
-                            </figure>`;
-                });
-
-                // PDF Embed Regex Hook[cite: 1]
-                contentHtml = contentHtml.replace(/\[\[pdf:\s*([^\]]+)\]\]/g, (match, parameters) => {
-                    const tokens = parameters.split(',').map(t => t.trim());
-                    const assetPath = tokens[0];
-                    const label = tokens[1] || assetPath.split('/').pop();
-                    const forceFullEmbed = tokens[2] ? tokens[2].toLowerCase() === 'true' : false;
-
-                    if (forceFullEmbed) {
-                        inlinePdfCounter++;
-                        return `<div class="pdf-embedded-container" id="inline-pdf-box-${inlinePdfCounter}" data-src="${assetPath}">
-                                    <div class="viewport-window-header">
-                                        <span class="viewport-window-title">${label}</span>
-                                        <div class="viewport-pdf-controls">
-                                            <span>Page</span>
-                                            <input type="number" class="pdf-page-input" id="inline-field-${inlinePdfCounter}" min="1" value="1" onkeydown="executeInlineJump(event, ${inlinePdfCounter})">
-                                            <span id="inline-max-${inlinePdfCounter}">/ --</span>
-                                        </div>
-                                    </div>
-                                    <div class="pdf-embedded-body" id="inline-scrollbody-${inlinePdfCounter}"></div>
-                                </div>`;
-                    } else {
-                        return `<div class="pdf-badge-container">
-                                    <a class="pdf-interactive-anchor" onclick="launchDocumentViewer('${assetPath}', '${label.replace(/'/g, "\\'")}')">
-                                        <div class="pdf-meta-group">
-                                            <span class="pdf-vector-icon"><i class="fas fa-file-pdf"></i></span>
-                                            <span class="pdf-asset-title">${label}</span>
-                                        </div>
-                                        <span class="pdf-action-tag">View Pages</span>
-                                    </a>
-                                </div>`;
-                    }
-                });
-
-                bodyContainer.innerHTML = contentHtml;
-
-                // 2. Initialize PDF Inline Embeds[cite: 1]
+                replaceProjectShortcodes(bodyContainer);
                 initializeFullInlineEmbeds();
 
                 // 3. Scroll Reveal Engine Assignment

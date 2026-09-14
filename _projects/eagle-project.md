@@ -4,6 +4,8 @@ title: "My Eagle Project: Building a Composter for Evanston Grows"
 description: "Designing, planning, and executing my 110 cubic foot composter build."
 image_path: "assets/images/composter_interior_view.jpg"
 tags: ["Scouting", "Service"]
+home_display: true
+home_order: 2
 ---
 
 ## Summary

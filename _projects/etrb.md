@@ -5,13 +5,15 @@ title: "E-Town Rocket Bureau: Two Years of Active Control"
 description: "A complete overview of my time engineering active-control model rockets, SITL simulators, and building an aerospace team from the ground up."
 image_path: "assets/images/full assembly render 1.png"
 tags: ["Rocketry", "Aerospace", "Active Controls", "Leadership", "Python", "C++"]
----------------------------------------------------------------------------------
+home_display: true
+home_order: 1
+---
 
 When Eli, Tristan, Peter, and I started the E-Town Rocket Bureau in August 2024, we didn't just want to launch standard model rockets. We wanted to make a rocket that could **control where it went**. Our goal was the American Rocketry Challenge (ARC), where success depends on hitting a precise target altitude. That requirement turned what started as a high school rocketry club into a two-year systems engineering project spanning aerodynamics, mechanical design, embedded programming, simulation, manufacturing, and team management.
 
 Our 2026 rocket, EML26, grew directly out of the much simpler rocket we built during our 2024–25 rookie season.
 
-[[image: /site/assets/images/etrb-2025-team.jpg, The E-Town Rocket Bureau team during our first year.]]
+[[image: /assets/images/etrb-2025-team.jpg, The E-Town Rocket Bureau team during our first year.]]
 
 The first year gave us a foundation, but EML26 was a completely different level of complexity. We added active-control airbrakes, a custom avionics system, more sophisticated flight software, and a mechanical deployment system. That ambition taught me one of the most important lessons of the entire project: **manufacturing is not a joke.**
 
@@ -45,7 +47,7 @@ In June, as my time with the Rocket Bureau was coming to an end, I pushed ATOS i
 
 [[image: /assets/images/binary_search_loop_diagram.png, The binary-search loop used by ATOS to automatically tune the PID controller.]]
 
-[[image: /airbrake-active-control/, ATOS — Active Targeting and Optimization Suite, true]]
+[[link: /airbrake-active-control/, ATOS — Active Targeting and Optimization Suite]]
 
 The result was a development environment that could take an OpenRocket flight export, simulate our active-control system, and systematically search for controller gains before putting hardware on a launch rail.
 
@@ -59,7 +61,7 @@ I had already started tackling that problem in the fall of 2025. I built a Pytho
 
 As the 2026 season progressed, I took the idea further by building a central team website using LLMs. It became both a public project showcase and a digital repository for our CAD models, C++ and Python code, technical documentation, and advice for future members. The goal was simple: **make sure the team's knowledge didn't disappear when the people who created it did.**
 
-[[image: https://eths-rocketry.github.io/site/Layouts/home.html, The ETHS Rocketry team website and technical repository I built with LLMs.]]
+[[link: https://eths-rocketry.github.io/site/Layouts/home.html, The ETHS Rocketry team website and technical repository I built with LLMs.]]
 
 By the time I finished my tenure at the end of the 2025–26 school year, the E-Town Rocket Bureau had become much more than the club we started in 2024. I had learned that designing an aerospace system means balancing aerodynamic theory with manufacturing constraints, software with hardware limitations, and individual engineering ability with the capabilities of an entire team.
 
