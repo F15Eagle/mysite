@@ -23,7 +23,7 @@ We originally planned to build two rockets for the 2026 season. Instead, the com
 For EML26, I designed a linkage-based airbrake mechanism capable of deploying during ascent while surviving roughly 12G loads. Using Autodesk Inventor and Autodesk CFD, I iterated on the mechanism and simulated its behavior. To get the tolerances exactly right, I manufactured three to four complete iterations of the whole airbrake assembly via 3D printing, alongside many more prototypes of the individual subcomponents. The objective wasn't simply to make an airbrake that moved; it had to integrate with the airframe, survive launch, and provide enough aerodynamic authority to precisely control apogee.
 
 [[image: /assets/images/Airbrake Render1.png, CAD assembly of the linkage-based active-control airbrake mechanism.]]
-[[video: assets/images/Airbrake Control Test (Numerical Input).mp4]]
+[[video: /assets/images/Airbrake Control Test (Numerical Input).mp4]]
 
 Designing the mechanism was only half the problem. To control it, I engineered a custom avionics stack around an ESP32-S3 microcontroller, integrating a BMP180 barometer and BNO085 IMU for real-time flight data. The electronics required more than simply connecting a few sensors: I soldered over 50 points across the MCU, sensors, boost circuitry, and a capacitor intended to handle the servo's sudden current spikes. On the software side, we used a 1D Kalman filter and exponential smoothing to reduce sensor noise and obtain altitude measurements accurate to roughly 1.5 meters.
 
