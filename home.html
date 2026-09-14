@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Prady</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <style>
+---
+layout: default
+---
+<style>
     :root {
         --light-bg: #ffffff;
         --text-dark: #111111;
@@ -226,7 +219,7 @@
     <div class="nav-links">
         <a href="#home" class="nav-text-link">Home</a>
         <a href="#projects" class="nav-text-link">Projects</a>
-        <a href="/mysite/resume.html" class="nav-text-link">Resume</a>
+        <a href="{{ 'resume.html' | relative_url }}" class="nav-text-link">Resume</a>
         <a href="https://www.linkedin.com/in/prady-m/" target="_blank" class="nav-social-link">
             <i class="fab fa-linkedin-in"></i>
         </a>
@@ -237,7 +230,7 @@
     <canvas class="wind-field" aria-hidden="true"></canvas>
     <div class="hero-left-profile">
         <div class="profile-image-container anim-sweep-left">
-            <img src="/mysite/assets/images/pradyumna-manur.jpg" alt="Prady Portrait Document">
+            <img src="{{ 'assets/images/pradyumna-manur.jpg' | relative_url }}" alt="Prady Portrait Document">
         </div>
     </div>
     <div class="hero-right anim-sweep-left">
@@ -254,93 +247,35 @@
     </div>
 
     <div class="project-grid">
-        
-        <a href="/mysite/projects/eagle-project/" class="project-link-wrapper scroll-reveal-card">
-            <div class="card has-image">
+        {% for project in site.projects %}
+        <a href="{{ project.url | relative_url }}" class="project-link-wrapper scroll-reveal-card">
+            <div class="card {% if project.image_path and project.image_path != '' %}has-image{% endif %}">
                 
                 <div class="card-content-side">
                     <div class="card-body">
-                        <h3>My Eagle Project: Building a Composter for Evanston Grows</h3>
-                        <p>Designing, planning, and executing my 110 cubic foot composter build.</p>
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
                     </div>
                     <div class="card-footer">
                         <div class="tech-tags">
-                            
-                            <span class="tag">Scouting</span>
-                            
-                            <span class="tag">Service</span>
-                            
+                            {% for tag in project.tags %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
 
-                
+                {% if project.image_path and project.image_path != "" %}
                 <div class="card-image-side">
-                    <img src="/mysite/assets/images/composter_interior_view.jpg" alt="My Eagle Project: Building a Composter for Evanston Grows">
+                    <img src="{{ project.image_path | relative_url }}" alt="{{ project.title }}">
                 </div>
-                
+                {% endif %}
                 
                 <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
 
             </div>
         </a>
-        
-        <a href="/mysite/projects/etrb/" class="project-link-wrapper scroll-reveal-card">
-            <div class="card ">
-                
-                <div class="card-content-side">
-                    <div class="card-body">
-                        <h3>E-Town Rocket Bureau</h3>
-                        <p>Co-founding, organizing, and leading a High School rocketry team.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tech-tags">
-                            
-                            <span class="tag">Leadership</span>
-                            
-                            <span class="tag">Aerospace</span>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                
-                
-                <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-
-            </div>
-        </a>
-        
-        <a href="/mysite/projects/lil-willy/" class="project-link-wrapper scroll-reveal-card">
-            <div class="card has-image">
-                
-                <div class="card-content-side">
-                    <div class="card-body">
-                        <h3>Lil' Willy: Altitude-Limiting Airbraked Rocket</h3>
-                        <p>PID control, SITL testing and optimization, custom avionics.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tech-tags">
-                            
-                            <span class="tag">SITL</span>
-                            
-                            <span class="tag">PID Control</span>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="card-image-side">
-                    <img src="/mysite/assets/images/full%20assembly%20render%201.png" alt="Lil' Willy: Altitude-Limiting Airbraked Rocket">
-                </div>
-                
-                
-                <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-
-            </div>
-        </a>
-        
+        {% endfor %}
     </div>
 </section>
 
@@ -429,5 +364,3 @@
     });
 </script>
 
-</body>
-</html>
